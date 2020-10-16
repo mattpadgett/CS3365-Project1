@@ -20,7 +20,7 @@ public class LoginViewController {
 	
 	@FXML
 	private void handleLogin() {
-		System.out.println("Do the login.");
+		//System.out.println("Do the login.");
 		
 		ResultSet rs = DBUtil.selectQuery("SELECT * FROM User;");
 		
