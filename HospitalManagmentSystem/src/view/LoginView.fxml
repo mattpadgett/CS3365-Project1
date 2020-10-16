@@ -7,16 +7,16 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginViewController">
+<AnchorPane prefHeight="347.0" prefWidth="300.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginViewController">
    <children>
-      <Text layoutX="12.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hospital Management System" textAlignment="CENTER" wrappingWidth="276.681640625">
+      <Text fill="WHITE" layoutX="12.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hospital Management System" textAlignment="CENTER" wrappingWidth="276.681640625">
          <font>
             <Font name="Arial Bold" size="36.0" />
          </font>
       </Text>
-      <TextField fx:id="usernameField" layoutX="76.0" layoutY="188.0" promptText="username" />
-      <PasswordField fx:id="passwordField" layoutX="76.0" layoutY="220.0" promptText="password" />
-      <Button layoutX="158.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleLogin" text="Login" />
-      <Button layoutX="108.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+      <TextField fx:id="usernameField" layoutX="46.0" layoutY="181.0" promptText="username" />
+      <PasswordField fx:id="passwordField" layoutX="46.0" layoutY="226.0" promptText="password" />
+      <Button layoutX="173.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="33.0" prefWidth="90.0" text="Login" />
+      <Button layoutX="46.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="33.0" prefWidth="90.0" text="Exit" />
    </children>
 </AnchorPane>

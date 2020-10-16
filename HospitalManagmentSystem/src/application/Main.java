@@ -5,6 +5,8 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import util.Authentication;
 import view.LoginViewController;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -12,6 +14,8 @@ import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application {
+	
+	private Stage loginStage;
 	
 	private Stage primaryStage;
 	private Stage secondaryStage;
@@ -24,13 +28,17 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("/view/LoginView.fxml"));
             AnchorPane anchorPane = (AnchorPane) loader.load();			
 			
-            this.primaryStage.setScene(new Scene(anchorPane));
-            this.primaryStage.show();			
+            this.primaryStage.hide();
             
-            this.primaryStage.centerOnScreen();
+            this.loginStage.setResizable(false);
+            this.loginStage.initStyle(StageStyle.UNDECORATED);
+            this.loginStage.setScene(new Scene(anchorPane));
+            this.loginStage.show();			
+            
+            this.loginStage.centerOnScreen();
             
             this.loginViewController = loader.getController();
-            this.loginViewController.setMain(this);  
+            this.loginViewController.setMain(this);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -38,6 +46,8 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
+		this.loginStage = new Stage();
+		
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Hospital Management System");
 		

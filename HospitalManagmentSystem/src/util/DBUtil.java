@@ -4,26 +4,31 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class DBUtil {
+	public static final String CONN_STRING = "jdbc:sqlite:src/resource/HMS.db";
+	
 	public static ResultSet selectQuery(String query) {
-		Connection conn = null;
-		
 		try {
-			conn = DriverManager.getConnection("jdbc:sqlite:src/resource/HMS.db");
+			Connection conn = DriverManager.getConnection(CONN_STRING);
 			
-			try {
-				Statement statement = conn.createStatement();
-				return statement.executeQuery(query);
-			} catch(SQLException e) {
-				conn.close();
-				e.printStackTrace();
-			}
+			return conn.createStatement().executeQuery(query);			
 		} catch(SQLException e) {
 			e.printStackTrace();			
 		}
 		
 		return null;
+	}
+	
+	public static int updateQuery(String query) {
+		try {
+			Connection conn = DriverManager.getConnection(CONN_STRING);
+			
+			return conn.createStatement().executeUpdate(query);			
+		} catch(SQLException e) {
+			e.printStackTrace();			
+		}
+		
+		return -1;
 	}
 }
