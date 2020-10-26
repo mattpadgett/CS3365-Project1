@@ -2,6 +2,7 @@ package util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -31,4 +32,19 @@ public class DBUtil {
 		
 		return -1;
 	}
+	
+	public static PreparedStatement insertQuery(String query) {
+		
+		try {
+			Connection conn = DriverManager.getConnection(CONN_STRING);
+			
+			return conn.prepareStatement(query);
+		} catch(SQLException e) {
+			e.printStackTrace();			
+		}
+		
+		return null;
+		
+	}
+	
 }
