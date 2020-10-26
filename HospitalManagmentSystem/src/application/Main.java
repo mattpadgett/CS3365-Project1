@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.PatientChart;
 import model.User;
 import util.Authentication;
 import util.DBUtil;
@@ -50,13 +51,28 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		
-		User testing = new User(1, "Christian", "Luckow", "Andres", "ijasonluck@gmail.com", "christian.luckow");
-//		testing.setUserTypeId(2);
-//		testing.setFirstName("Chris");
-//		testing.setLastName("Ramirez");
-//		testing.setMiddleName("Jeffrey");
-//		testing.setEmail("jason.luckow@outlook.com");
-//		testing.setUsername("chris.ramirez");
+		User testingUser = new User(1, "Christian", "Luckow", "Andres", "ijasonluck@gmail.com", "christian.luckow");
+//		testingUser.setUserTypeId(2);
+//		testingUser.setFirstName("Chris");
+//		testingUser.setLastName("Ramirez");
+//		testingUser.setMiddleName("Jeffrey");
+//		testingUser.setEmail("jason.luckow@outlook.com");
+//		testingUser.setUsername("chris.ramirez");
+		
+		PatientChart testingChart = new PatientChart("Json", "Luckow", "Jeffrey", "707 Ave T", "3478 CatClaw DR #212", "Lubbock", "TX", "79401", "000-00-0000", "The Best Insurance");
+//		testingChart.setFirstName("Jay");
+//		testingChart.setLastName("Ramirez");
+//		testingChart.setMiddleName("Andres");
+//		testingChart.setAddress1("3478 CatClaw Dr #212");
+//		testingChart.setAddress2("707 Ave T");
+//		testingChart.setCity("Abilene");
+//		testingChart.setState("Texas");
+//		testingChart.setZipCode("79606");
+//		testingChart.setSocialSecurityNumber("000-00-0001");
+//		testingChart.setInsuranceProvider("The Worst Insurance");
+//		PatientChart testingChart2 = new PatientChart("Jason", "Luckow", "Jeffrey", "707 Ave T", "3478 CatClaw DR #212", "Lubbock", "TX", "79401", "000-00-0000", "The Best Insurance");
+//		
+		
 		
 		this.loginStage = new Stage();
 		
