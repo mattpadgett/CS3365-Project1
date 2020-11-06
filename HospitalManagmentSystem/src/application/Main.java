@@ -12,6 +12,7 @@ import model.TreatmentRecord;
 import model.User;
 import util.Authentication;
 import util.DBUtil;
+import view.HomeViewController;
 import view.LoginViewController;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -26,6 +27,27 @@ public class Main extends Application {
 	private Stage secondaryStage;
 	
 	private LoginViewController loginViewController;
+	private HomeViewController homeViewController;
+	
+	public void showHomeView() {
+		try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/view/HomeView.fxml"));
+            AnchorPane anchorPane = (AnchorPane) loader.load();			
+			
+            this.loginStage.hide();
+            
+            this.primaryStage.setScene(new Scene(anchorPane));
+            this.primaryStage.show();
+            
+            this.primaryStage.centerOnScreen();
+            
+            this.homeViewController = loader.getController();
+            this.homeViewController.setMain(this);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+	}
 	
 	public void showLoginView() {
 		try {
@@ -35,8 +57,6 @@ public class Main extends Application {
 			
             this.primaryStage.hide();
             
-            this.loginStage.setResizable(false);
-            this.loginStage.initStyle(StageStyle.UNDECORATED);
             this.loginStage.setScene(new Scene(anchorPane));
             this.loginStage.show();			
             
@@ -74,7 +94,7 @@ public class Main extends Application {
 //		PatientChart testingChart2 = new PatientChart("Jason", "Luckow", "Jeffrey", "707 Ave T", "3478 CatClaw DR #212", "Lubbock", "TX", "79401", "000-00-0000", "The Best Insurance");
 
 		TreatmentRecord testingTreatRecord = new TreatmentRecord("11/02/2020", 165.00f, 71.00f, "140/90mmHg", "Corona", "Does not actually have corona", 0);
-		testingTreatRecord.setDate("11/05/2020");
+		//testingTreatRecord.setDate("11/05/2020");
 //		testingTreatRecord.setWeight(120.00f);
 //		testingTreatRecord.setHeight(84.00f);
 //		testingTreatRecord.setBloodPressure("180/100mmHg");
@@ -86,6 +106,11 @@ public class Main extends Application {
 		
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Hospital Management System");
+		
+		this.primaryStage.setResizable(false);
+		
+		this.loginStage.setResizable(false);
+        this.loginStage.initStyle(StageStyle.UNDECORATED);        
 		
 		showLoginView();
 	}

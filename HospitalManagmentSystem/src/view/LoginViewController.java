@@ -3,10 +3,13 @@ package view;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.sun.org.apache.bcel.internal.generic.Select;
+
 import application.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import util.Authentication;
 import util.DBUtil;
 
 public class LoginViewController {
@@ -20,16 +23,23 @@ public class LoginViewController {
 	
 	@FXML
 	private void handleLogin() {
-		//System.out.println("Do the login.");
-		
-		ResultSet rs = DBUtil.selectQuery("SELECT * FROM User;");
+		ResultSet rs = DBUtil.selectQuery("SELECT * FROM User WHERE Username = '" + usernameField.getText() + "' LIMIT 1;");
 		
 		try {
-			while(rs.next()) {
-				System.out.println(rs.getInt(1) + ", " + rs.getString(3) + ", " + rs.getString(4));
+			if(rs.next()) {
+				if(Authentication.verifyPassphrase(passwordField.getText(), rs.getString(8))) {
+					System.out.println("Authenticated.");
+					this.main.showHomeView();
+				} else {
+					System.out.println("Invalid Password.");
+				}
+			} else {
+				System.out.println("Invalid Username.");
 			}
+						
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 	
