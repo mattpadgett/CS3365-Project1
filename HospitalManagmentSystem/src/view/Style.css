@@ -44,34 +44,12 @@
     -fx-background-color: derive(-fx-primary, 20%);
 }
 
-.red-button{
-    -fx-text-fill: RED;
-    -fx-background-color: -fx-primary;
-    -fx-border-color: RED;
-    /*-fx-border-radius: 20px;
-    -fx-background-radius: 20px;*/
-    -fx-font-size: 15px;
+.home-btn {
+	-fx-background-color: #333333;
 }
 
-.red-button:hover{
-    -fx-border-color: RED;
-    -fx-background-color: RED;
-    -fx-text-fill: -fx-primary;
-}
-
-.dev-button{
-    -fx-text-fill: #FFCC00;
-    -fx-background-color: -fx-primary;
-    -fx-border-color: #FFCC00;
-    /*-fx-border-radius: 20px;
-    -fx-background-radius: 20px;*/
-    -fx-font-size: 15px;
-}
-
-.dev-button:hover{
-    -fx-border-color: #FFCC00;
-    -fx-background-color: #FFCC00;
-    -fx-text-fill: -fx-primary;
+.home-btn:hover{
+    -fx-background-color: derive(#333333, 20%);
 }
 
 .text-field

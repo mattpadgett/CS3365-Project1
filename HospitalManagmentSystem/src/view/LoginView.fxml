@@ -16,7 +16,7 @@
       </Text>
       <TextField fx:id="usernameField" layoutX="46.0" layoutY="181.0" promptText="username" />
       <PasswordField fx:id="passwordField" layoutX="46.0" layoutY="226.0" promptText="password" />
-      <Button layoutX="173.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="33.0" prefWidth="90.0" text="Login" />
-      <Button layoutX="46.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="33.0" prefWidth="90.0" text="Exit" />
+      <Button defaultButton="true" layoutX="173.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="33.0" prefWidth="90.0" text="Login" />
+      <Button cancelButton="true" layoutX="46.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="33.0" prefWidth="90.0" text="Exit" />
    </children>
 </AnchorPane>
