@@ -10,6 +10,7 @@ import javafx.stage.StageStyle;
 import model.User;
 import util.Authentication;
 import util.DBUtil;
+import view.HomeViewController;
 import view.LoginViewController;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -24,6 +25,27 @@ public class Main extends Application {
 	private Stage secondaryStage;
 	
 	private LoginViewController loginViewController;
+	private HomeViewController homeViewController;
+	
+	public void showHomeView() {
+		try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/view/HomeView.fxml"));
+            AnchorPane anchorPane = (AnchorPane) loader.load();			
+			
+            this.loginStage.hide();
+            
+            this.primaryStage.setScene(new Scene(anchorPane));
+            this.primaryStage.show();
+            
+            this.primaryStage.centerOnScreen();
+            
+            this.homeViewController = loader.getController();
+            this.homeViewController.setMain(this);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+	}
 	
 	public void showLoginView() {
 		try {
@@ -33,8 +55,6 @@ public class Main extends Application {
 			
             this.primaryStage.hide();
             
-            this.loginStage.setResizable(false);
-            this.loginStage.initStyle(StageStyle.UNDECORATED);
             this.loginStage.setScene(new Scene(anchorPane));
             this.loginStage.show();			
             
@@ -50,7 +70,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		
-		User testing = new User(1, "Christian", "Luckow", "Andres", "ijasonluck@gmail.com", "christian.luckow");
+		//User testing = new User(1, "Christian", "Luckow", "Andres", "ijasonluck@gmail.com", "christian.luckow");
 //		testing.setUserTypeId(2);
 //		testing.setFirstName("Chris");
 //		testing.setLastName("Ramirez");
@@ -62,6 +82,11 @@ public class Main extends Application {
 		
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Hospital Management System");
+		
+		this.primaryStage.setResizable(false);
+		
+		this.loginStage.setResizable(false);
+        this.loginStage.initStyle(StageStyle.UNDECORATED);        
 		
 		showLoginView();
 	}
