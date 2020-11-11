@@ -9,6 +9,7 @@ import application.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import model.User;
 import util.Authentication;
 import util.DBUtil;
 
@@ -28,6 +29,7 @@ public class LoginViewController {
 		try {
 			if(rs.next()) {
 				if(Authentication.verifyPassphrase(passwordField.getText(), rs.getString(8))) {
+					this.main.setLoggedUser(new User(rs.getInt(1)));
 					System.out.println("Authenticated.");
 					this.main.showHomeView();
 				} else {

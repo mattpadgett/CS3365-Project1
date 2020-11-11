@@ -71,6 +71,10 @@ public class User {
 		}
 	}
 	
+	public User(int userId) {
+		
+	}
+	
 	public int getUserID() {
 		
 		return this.userID;

@@ -29,6 +29,8 @@ public class Main extends Application {
 	private LoginViewController loginViewController;
 	private HomeViewController homeViewController;
 	
+	private User loggedUser;
+	
 	public void showHomeView() {
 		try {
             FXMLLoader loader = new FXMLLoader();
@@ -67,6 +69,14 @@ public class Main extends Application {
         } catch(IOException e) {
             e.printStackTrace();
         }
+	}
+	
+	public User getLoggedUser() {
+		return this.loggedUser;
+	}
+	
+	public void setLoggedUser(User user) {
+		this.loggedUser = user;
 	}
 	
 	@Override
