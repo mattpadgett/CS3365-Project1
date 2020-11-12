@@ -10,6 +10,7 @@ import javafx.stage.StageStyle;
 import model.PatientChart;
 import model.TreatmentRecord;
 import model.User;
+import model.Transaction;
 import util.Authentication;
 import util.DBUtil;
 import view.HomeViewController;
@@ -101,6 +102,8 @@ public class Main extends Application {
 //		testingTreatRecord.setVisitReason("Heart feels like they are about to explode");
 //		testingTreatRecord.setTreatmentNote("Kicking them out bc they don't have health insurance");
 //		testingTreatRecord.setPrescriptionId(1);
+		
+		Transaction testTransaction = new Transaction(1, 1, 25.50, 1);
 		
 		this.loginStage = new Stage();
 		
