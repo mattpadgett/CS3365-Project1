@@ -12,9 +12,11 @@ import model.TreatmentRecord;
 import model.User;
 import util.Authentication;
 import util.DBUtil;
+import view.AdminDetailsPopController;
 import view.AdministrationViewController;
 import view.HomeViewController;
 import view.LoginViewController;
+import view.ProfileViewController;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -26,12 +28,55 @@ public class Main extends Application {
 	
 	private Stage primaryStage;
 	private Stage secondaryStage;
+	private Stage popStage;
 	
 	private LoginViewController loginViewController;
 	private HomeViewController homeViewController;
 	private AdministrationViewController adminViewController;
 	
+	private AdminDetailsPopController adminDetailsPopController;
+	private ProfileViewController profileViewController;
+	
 	private User loggedUser;
+	
+	public void showProfileView() {
+		try {	
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/view/ProfileView.fxml"));
+            AnchorPane anchorPane = (AnchorPane) loader.load();
+            
+            this.popStage.setScene(new Scene(anchorPane));
+            
+            this.profileViewController = loader.getController();
+            this.profileViewController.setMain(this);
+            this.profileViewController.setup();
+            
+            this.popStage.centerOnScreen();
+            this.popStage.show();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	public void showAdminDetailsPop(User user, boolean newUserMode) {
+		try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/view/AdminDetailsPop.fxml"));
+            AnchorPane anchorPane = (AnchorPane) loader.load();
+            
+            this.popStage.setScene(new Scene(anchorPane));
+            
+            this.adminDetailsPopController = loader.getController();
+            this.adminDetailsPopController.setMain(this);
+            this.adminDetailsPopController.loadData(user);
+            this.adminDetailsPopController.setNewUserMode(newUserMode);
+            
+            this.popStage.centerOnScreen();
+            this.popStage.show();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+	}
 	
 	public void showAdminView() {
 		try {
@@ -87,8 +132,8 @@ public class Main extends Application {
             this.loginViewController = loader.getController();
             this.loginViewController.setMain(this);
             
-            this.setLoggedUser(new User(1));
-            this.showHomeView();
+            //this.setLoggedUser(new User(1));
+            //this.showHomeView();
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -135,19 +180,41 @@ public class Main extends Application {
 //		testingTreatRecord.setTreatmentNote("Kicking them out bc they don't have health insurance");
 //		testingTreatRecord.setPrescriptionId(1);
 		
-		this.loginStage = new Stage();
-		
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Hospital Management System");
-		
 		this.primaryStage.setResizable(false);
 		
+		this.loginStage = new Stage();
 		this.loginStage.setResizable(false);
-        this.loginStage.initStyle(StageStyle.UNDECORATED);        
+        this.loginStage.initStyle(StageStyle.UNDECORATED);
+        
+        this.popStage = new Stage();
+        this.popStage.setResizable(false);
+        this.popStage.initStyle(StageStyle.UNDECORATED);
 		
 		showLoginView();
 	}
 	
+	public Stage getPopStage() {
+		return this.popStage;
+	}
+	
+	public LoginViewController getLoginViewController() {
+		return loginViewController;
+	}
+
+	public HomeViewController getHomeViewController() {
+		return homeViewController;
+	}
+
+	public AdministrationViewController getAdminViewController() {
+		return adminViewController;
+	}
+
+	public AdminDetailsPopController getAdminDetailsPopController() {
+		return adminDetailsPopController;
+	}
+
 	public static void main(String[] args) {
 		launch(args);
 	}

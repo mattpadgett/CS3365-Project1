@@ -38,19 +38,24 @@ public class AdministrationViewController {
 	private void handleDetails() {
 		if(this.selectedUser == null) {
 			return;
+		} else {
+			this.main.showAdminDetailsPop(this.selectedUser, false);
 		}
-		
-		System.out.println(this.selectedUser.getFirstName());
 	}
 	
 	@FXML
 	private void handleDelete() {
-		
+		if(this.selectedUser == null) {
+			return;
+		} else {
+			DBUtil.updateQuery("UPDATE User SET StatusId = 2 WHERE UserId = " + this.selectedUser.getUserID());
+			initialize();
+		}
 	}
 	
 	@FXML
 	private void handleNew() {
-		
+		this.main.showAdminDetailsPop(null, true);
 	}
 	
 	@FXML
@@ -59,7 +64,9 @@ public class AdministrationViewController {
 	}
 	
 	public void initialize() {
-		ResultSet rs = DBUtil.selectQuery("SELECT UserId FROM User;");
+		userTable.getItems().clear();
+		
+		ResultSet rs = DBUtil.selectQuery("SELECT UserId FROM User Where StatusId = 1;");
 		
 		try {
 			while(rs.next()) {

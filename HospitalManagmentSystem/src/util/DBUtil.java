@@ -8,14 +8,26 @@ import java.sql.SQLException;
 
 public class DBUtil {
 	public static final String CONN_STRING = "jdbc:sqlite:src/resource/HMS.db";
+	public static Connection conn = null;
+	
+	public static Connection getConn() {
+		if(conn == null) {
+			try {
+				conn = DriverManager.getConnection(CONN_STRING);
+			} catch (SQLException e) {
+				System.err.println("Couldn't connect to the database.");
+				System.exit(9000);
+			}
+		}
+		
+		return conn;
+	}
 	
 	public static ResultSet selectQuery(String query) {
 		try {
-			Connection conn = DriverManager.getConnection(CONN_STRING);
-			
-			return conn.createStatement().executeQuery(query);			
-		} catch(SQLException e) {
-			e.printStackTrace();			
+			return getConn().createStatement().executeQuery(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		
 		return null;
@@ -23,9 +35,7 @@ public class DBUtil {
 	
 	public static int updateQuery(String query) {
 		try {
-			Connection conn = DriverManager.getConnection(CONN_STRING);
-			
-			return conn.createStatement().executeUpdate(query);			
+			return getConn().createStatement().executeUpdate(query);			
 		} catch(SQLException e) {
 			e.printStackTrace();			
 		}
@@ -34,17 +44,12 @@ public class DBUtil {
 	}
 	
 	public static PreparedStatement insertQuery(String query) {
-		
 		try {
-			Connection conn = DriverManager.getConnection(CONN_STRING);
-			
-			return conn.prepareStatement(query);
+			return getConn().prepareStatement(query);
 		} catch(SQLException e) {
 			e.printStackTrace();			
 		}
 		
 		return null;
-		
 	}
-	
 }

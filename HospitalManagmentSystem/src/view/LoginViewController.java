@@ -24,7 +24,7 @@ public class LoginViewController {
 	
 	@FXML
 	private void handleLogin() {
-		ResultSet rs = DBUtil.selectQuery("SELECT * FROM User WHERE Username = '" + usernameField.getText() + "' LIMIT 1;");
+		ResultSet rs = DBUtil.selectQuery("SELECT * FROM User WHERE Username = '" + usernameField.getText() + "' AND StatusId = 1 LIMIT 1;");
 		
 		try {
 			if(rs.next()) {

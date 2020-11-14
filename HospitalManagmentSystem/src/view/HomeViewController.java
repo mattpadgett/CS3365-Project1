@@ -13,7 +13,7 @@ public class HomeViewController {
 	
 	@FXML
 	private void handleViewProfile() {
-		
+		this.main.showProfileView();
 	}
 	
 	@FXML

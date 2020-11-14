@@ -47,7 +47,7 @@ public class User {
 		
 		if(skipFlag == false) {
 			
-			PreparedStatement pstmt = DBUtil.insertQuery("INSERT INTO User(userTypeId,firstName,lastName,middleName,email,username) VALUES (?,?,?,?,?,?);");
+			PreparedStatement pstmt = DBUtil.insertQuery("INSERT INTO User(userTypeId,firstName,lastName,middleName,email,username,StatusId) VALUES (?,?,?,?,?,?,?);");
 			try {
 				
 				pstmt.setInt(1, this.userTypeId);
@@ -56,6 +56,7 @@ public class User {
 				pstmt.setString(4, this.middleName);
 				pstmt.setString(5, this.email);
 				pstmt.setString(6, this.username);
+				pstmt.setInt(7, 1);
 				pstmt.executeUpdate();
 				
 			} catch (SQLException e) {
@@ -107,9 +108,26 @@ public class User {
 		this.userID = newUserId;
 	}
 	
-	public int getUserTypeId() {
-		
+	public int getUserTypeId() {	
 		return this.userTypeId;
+	}
+	
+	public String getUserType() {
+		ResultSet rs = DBUtil.selectQuery("SELECT UserType FROM Resource_UserType WHERE UserTypeId = '" + getUserTypeId() + "';");
+		
+		try {
+			if(rs.next()) {
+				return rs.getString(1);
+			} else {
+				System.out.println("Invalid UserTypeId.");
+			}
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}
+		
+		return "";
 	}
 	
 	public void setUserTypeId(int newUserId) {
@@ -239,8 +257,18 @@ public class User {
 	}
 	
 	public void setPassHash(String newPasshash) {
-		
 		this.passHash = newPasshash;
+		
+		PreparedStatement pstmt = DBUtil.insertQuery("UPDATE User SET PasswordHash = ? " + "WHERE UserId = ? ;");
+		try {
+			
+			pstmt.setString(1, this.passHash);
+			pstmt.setInt(2, this.userID);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public SimpleStringProperty usernameProperty() {
@@ -256,6 +284,6 @@ public class User {
 	}
 	
 	public SimpleStringProperty userTypeProperty() {
-		return new SimpleStringProperty(String.valueOf(getUserTypeId()));
+		return new SimpleStringProperty(getUserType());
 	}
 }
