@@ -12,6 +12,7 @@ import model.TreatmentRecord;
 import model.User;
 import util.Authentication;
 import util.DBUtil;
+import view.AdministrationViewController;
 import view.HomeViewController;
 import view.LoginViewController;
 import javafx.scene.Scene;
@@ -28,8 +29,27 @@ public class Main extends Application {
 	
 	private LoginViewController loginViewController;
 	private HomeViewController homeViewController;
+	private AdministrationViewController adminViewController;
 	
 	private User loggedUser;
+	
+	public void showAdminView() {
+		try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/view/AdministrationView.fxml"));
+            AnchorPane anchorPane = (AnchorPane) loader.load();
+            
+            this.primaryStage.setScene(new Scene(anchorPane));
+            this.primaryStage.show();
+            
+            this.primaryStage.centerOnScreen();
+            
+            this.adminViewController = loader.getController();
+            this.adminViewController.setMain(this);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+	}
 	
 	public void showHomeView() {
 		try {
@@ -66,6 +86,9 @@ public class Main extends Application {
             
             this.loginViewController = loader.getController();
             this.loginViewController.setMain(this);
+            
+            this.setLoggedUser(new User(1));
+            this.showHomeView();
         } catch(IOException e) {
             e.printStackTrace();
         }

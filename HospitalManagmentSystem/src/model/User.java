@@ -3,6 +3,9 @@ package model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javafx.beans.property.SimpleStringProperty;
+import util.Authentication;
 import util.DBUtil;
 
 public class User {
@@ -72,7 +75,26 @@ public class User {
 	}
 	
 	public User(int userId) {
+		ResultSet rs = DBUtil.selectQuery("SELECT * FROM User WHERE UserId = '" + userId + "' LIMIT 1;");
 		
+		try {
+			if(rs.next()) {
+				this.userID = rs.getInt(1);
+				this.userTypeId = rs.getInt(2);
+				this.firstName = rs.getString(3);
+				this.lastName = rs.getString(4);
+				this.middleName = rs.getString(5);
+				this.email = rs.getString(6);
+				this.username = rs.getString(7);
+				this.passHash = rs.getString(8);				
+			} else {
+				System.out.println("Invalid UserId.");
+			}
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}
 	}
 	
 	public int getUserID() {
@@ -221,4 +243,19 @@ public class User {
 		this.passHash = newPasshash;
 	}
 	
+	public SimpleStringProperty usernameProperty() {
+		return new SimpleStringProperty(getUsername());
+	}
+	
+	public SimpleStringProperty firstNameProperty() {
+		return new SimpleStringProperty(getFirstName());
+	}
+	
+	public SimpleStringProperty lastNameProperty() {
+		return new SimpleStringProperty(getLastName());
+	}
+	
+	public SimpleStringProperty userTypeProperty() {
+		return new SimpleStringProperty(String.valueOf(getUserTypeId()));
+	}
 }
