@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="800.0" stylesheets="@Style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="view.HomeViewController">
+<AnchorPane prefHeight="400.0" prefWidth="800.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.HomeViewController">
    <children>
       <Pane prefWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -38,7 +37,7 @@
             </Button>
          </children>
       </Pane>
-      <Button contentDisplay="TOP" layoutX="55.0" layoutY="14.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" styleClass="home-btn" text="Patients">
+      <Button contentDisplay="TOP" layoutX="70.0" layoutY="15.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" styleClass="home-btn" text="Patients">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -47,7 +46,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button contentDisplay="TOP" layoutX="195.0" layoutY="14.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" styleClass="home-btn" text="Billing">
+      <Button contentDisplay="TOP" layoutX="210.0" layoutY="15.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" styleClass="home-btn" text="Billing">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -56,11 +55,20 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button contentDisplay="TOP" layoutX="335.0" layoutY="14.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" styleClass="home-btn" text="Administration">
+      <Button contentDisplay="TOP" layoutX="350.0" layoutY="15.0" mnemonicParsing="false" onAction="#handleAdmin" prefHeight="125.0" prefWidth="125.0" styleClass="home-btn" text="Administration">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resource/icons/admin.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button contentDisplay="TOP" layoutX="70.0" layoutY="155.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" styleClass="home-btn" text="Appointments">
+         <graphic>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resource/icons/appointments.png" />
                </image>
             </ImageView>
          </graphic>
