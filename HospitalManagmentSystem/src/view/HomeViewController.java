@@ -7,6 +7,11 @@ public class HomeViewController {
 	private Main main;
 
 	@FXML
+	private void handlePatients() {
+		this.main.showPatientsView();
+	}
+	
+	@FXML
 	private void handleAdmin() {
 		this.main.showAdminView();
 	}

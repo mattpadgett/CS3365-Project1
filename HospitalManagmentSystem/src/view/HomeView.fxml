@@ -37,7 +37,7 @@
             </Button>
          </children>
       </Pane>
-      <Button contentDisplay="TOP" layoutX="70.0" layoutY="15.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" styleClass="home-btn" text="Patients">
+      <Button contentDisplay="TOP" layoutX="70.0" layoutY="15.0" mnemonicParsing="false" onAction="#handlePatients" prefHeight="125.0" prefWidth="125.0" styleClass="home-btn" text="Patients">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>

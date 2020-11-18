@@ -3,6 +3,8 @@ package model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javafx.beans.property.SimpleStringProperty;
 import util.DBUtil;
 
 public class PatientChart {
@@ -37,7 +39,7 @@ public class PatientChart {
 		ResultSet rs = DBUtil.selectQuery("SELECT SocialSecurityNumber FROM PatientChart;");
 		try {
 			while(rs.next()) {
-				System.out.println(this.firstName + "\t" + rs.getString(1) + "\t" + this.socialSecurityNumber);
+//				System.out.println(this.firstName + "\t" + rs.getString(1) + "\t" + this.socialSecurityNumber);
 				if(rs.getString(1).equals(this.socialSecurityNumber)) {
 					
 					skipFlag = true;
@@ -51,7 +53,7 @@ public class PatientChart {
 		
 		if(skipFlag == false) {
 			
-			PreparedStatement pstmt = DBUtil.insertQuery("INSERT INTO PatientChart(firstName,lastName,middleName,address1,address2,city,state,zipCode,socialSecurityNumber,insuranceProvider) VALUES (?,?,?,?,?,?,?,?,?,?);");
+			PreparedStatement pstmt = DBUtil.insertQuery("INSERT INTO PatientChart(firstName,lastName,middleName,address1,address2,city,state,zipCode,socialSecurityNumber,insuranceProvider,statusId) VALUES (?,?,?,?,?,?,?,?,?,?,?);");
 			try {
 				
 				pstmt.setString(1, this.firstName);
@@ -64,6 +66,7 @@ public class PatientChart {
 				pstmt.setString(8, this.zipCode);
 				pstmt.setString(9, this.socialSecurityNumber);
 				pstmt.setString(10, this.insuranceProvider);
+				pstmt.setInt(11, 1);
 				pstmt.executeUpdate();
 				
 			} catch (SQLException e) {
@@ -73,12 +76,37 @@ public class PatientChart {
 			ResultSet r = DBUtil.selectQuery("SELECT MAX(PatientChartId) FROM PatientChart;");
 			
 			try {
-				
 				this.patientChartID = r.getInt(1);
 				r.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+	
+	public PatientChart(int patientChartID) {
+		ResultSet rs = DBUtil.selectQuery("SELECT * FROM PatientChart WHERE PatientChartId = '" + patientChartID + "' LIMIT 1;");
+		
+		try {
+			if(rs.next()) {
+				this.patientChartID = rs.getInt(1);
+				this.firstName = rs.getString(2);
+				this.lastName = rs.getString(3);
+				this.middleName = rs.getString(4);
+				this.address1 = rs.getString(5);
+				this.address2 = rs.getString(6);
+				this.city = rs.getString(7);
+				this.state = rs.getString(8);
+				this.zipCode = rs.getString(9);
+				this.socialSecurityNumber = rs.getString(10);
+				this.insuranceProvider = rs.getString(11);		
+			} else {
+				System.out.println("Invalid PatientChartId.");
+			}
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 	
@@ -300,6 +328,22 @@ public class PatientChart {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public SimpleStringProperty firstNameProperty() {
+		return new SimpleStringProperty(getFirstName());
+	}
+	
+	public SimpleStringProperty lastNameProperty() {
+		return new SimpleStringProperty(getLastName());
+	}
+	
+	public SimpleStringProperty addressProperty() {
+		return new SimpleStringProperty(getAddress1());
+	}
+	
+	public SimpleStringProperty insuranceProperty() {
+		return new SimpleStringProperty(getInsuranceProvider());
 	}
 
 }
