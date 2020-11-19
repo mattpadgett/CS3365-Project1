@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import util.DBUtil;
 
-public class Transaction {
+public class TransactionRecord {
   
   private int transactionRecordID;
   private int transactionTypeID;
@@ -13,14 +13,13 @@ public class Transaction {
   private double amount;
   private int statusID;
   
-  public Transaction(int transactionTypeID, int referenceNum, double amount, int statusID) {
+  public TransactionRecord(int transactionTypeID, int referenceNum, double amount, int statusID) {
     
     this.transactionTypeID = transactionTypeID;
     this.referenceNumber = referenceNum;
     this.amount = amount;
     this.statusID = statusID;
 
-    System.out.println("here");
     boolean flag = false;
     
     ResultSet rs = DBUtil.selectQuery("SELECT ReferenceNumber FROM TransactionRecord");
@@ -43,7 +42,6 @@ public class Transaction {
     if(flag == false) {
       PreparedStatement ps = DBUtil.insertQuery("INSERT INTO TransactionRecord(transactionTypeID, referenceNumber, amount, statusID) VALUES (?,?,?,?);");
       try {
-        System.out.println("here");
         ps.setInt(1, this.transactionTypeID);
         ps.setInt(2, this.referenceNumber);
         ps.setDouble(3, this.amount);
