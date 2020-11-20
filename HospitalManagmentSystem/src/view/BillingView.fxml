@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="805.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.BillingViewController">
+   <children>
+      <Pane prefWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutY="345.0" mnemonicParsing="false" onAction="#handleReturn" prefHeight="50.0" prefWidth="50.0" style="-fx-padding: 0;">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resource/icons/back.png" />
+                     </image>
+                     <rotationAxis>
+                        <Point3D />
+                     </rotationAxis>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+      <Label layoutX="318.0" layoutY="14.0" prefHeight="35.0" prefWidth="164.0" text="Patients" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TableView fx:id="patientsTable" layoutX="70.0" layoutY="50.0" prefHeight="336.0" prefWidth="599.0">
+         <columns>
+            <TableColumn fx:id="firstNameColumn" prefWidth="140.0" text="First Name" />
+            <TableColumn fx:id="lastNameColumn" prefWidth="140.0" text="Last Name" />
+            <TableColumn fx:id="addressColumn" prefWidth="140.0" text="Address" />
+            <TableColumn fx:id="insuranceColumn" prefWidth="140.0" text="Insurance" />
+         </columns>
+      </TableView>
+      <Button layoutX="678.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleRecord" prefHeight="33.0" prefWidth="119.0" text="Billing Record" />
+      <Button layoutX="678.0" layoutY="98.0" mnemonicParsing="false" onAction="#handleNew" prefHeight="33.0" prefWidth="119.0" text="New Payment" textAlignment="CENTER" />
+   </children>
+</AnchorPane>
