@@ -12,6 +12,11 @@ public class HomeViewController {
 	}
 	
 	@FXML
+	private void handleBilling() {
+		this.main.showBillingView();
+	}
+	
+	@FXML
 	private void handleAdmin() {
 		this.main.showAdminView();
 	}

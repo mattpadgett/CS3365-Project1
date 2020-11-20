@@ -46,7 +46,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button contentDisplay="TOP" layoutX="210.0" layoutY="15.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" styleClass="home-btn" text="Billing">
+      <Button contentDisplay="TOP" layoutX="210.0" layoutY="15.0" mnemonicParsing="false" onAction="#handleBilling" prefHeight="125.0" prefWidth="125.0" styleClass="home-btn" text="Billing">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>

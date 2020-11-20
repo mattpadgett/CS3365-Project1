@@ -3,6 +3,8 @@ package model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javafx.beans.property.SimpleStringProperty;
 import util.DBUtil;
 
 public class BillingRecord {
@@ -11,14 +13,12 @@ public class BillingRecord {
   private int patientID;
   private int appointmentID;
   private double amount;
-  private int statusID;
   
-  public BillingRecord(int patientID, int appointmentID, double amount, int statusID) {
+  public BillingRecord(int patientID, int appointmentID, double amount) {
     
     this.patientID = patientID;
     this.appointmentID = appointmentID;
     this.amount = amount;
-    this.statusID = statusID;
 
     boolean flag = false;
     
@@ -26,13 +26,13 @@ public class BillingRecord {
     
     try {
       while(rs.next()) {
-        System.out.println(this.billingRecordID + "\t" + rs.getInt(1) + "\t" + this.appointmentID);
+//        System.out.println(this.billingRecordID + "\t" + rs.getInt(1) + "\t" + this.appointmentID);
         if(rs.getInt(1) == (this.appointmentID)) {
           flag = true;
         }
       }
       
-      System.out.println("\n" + flag);
+//      System.out.println("\n" + flag);
       rs.close();
       
     } catch (SQLException e) {
@@ -45,7 +45,7 @@ public class BillingRecord {
         ps.setInt(1, this.patientID);
         ps.setInt(2, this.appointmentID);
         ps.setDouble(3, this.amount);
-        ps.setInt(4, this.statusID);
+        ps.setInt(4,1);
         ps.executeUpdate();
       } catch (SQLException e) {
         e.printStackTrace();
@@ -62,8 +62,29 @@ public class BillingRecord {
     }
   }
   
+  public BillingRecord(int billingRecordID) {
+		ResultSet rs = DBUtil.selectQuery("SELECT * FROM BillingRecord WHERE BillingRecordId = '" + billingRecordID + "' LIMIT 1;");
+		
+		try {
+			if(rs.next()) {
+				this.billingRecordID = rs.getInt(1);
+				this.patientID = rs.getInt(2);
+				this.appointmentID = rs.getInt(3);
+				this.amount = rs.getDouble(4);
+			} else {
+				System.out.println("Invalid BillingRecordId.");
+			}
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}
+	}
+  
   public int getBillingRecordID() {
-    return this.billingRecordID;
+//	  System.out.println(this.billingRecordID);
+	  return this.billingRecordID;
+    
   }
   
   public void setBillingRecordID(int id) {
@@ -88,6 +109,11 @@ public class BillingRecord {
     }
   }
   
+  public int getAppointmentID() {
+	  return this.appointmentID;
+	  
+  }
+  
   public int getReferenceNum() {
     return this.appointmentID;
   }
@@ -110,8 +136,9 @@ public class BillingRecord {
     return this.amount;
   }
   
-  public void setAmount(float amount) {
+  public void setAmount(Double amount) {
     System.out.println(this.amount);
+    System.out.println(this.billingRecordID);
     this.amount = amount;
     
     PreparedStatement ps = DBUtil.insertQuery("UPDATE BillingRecord SET Amount = ?" + "WHERE BillingRecordID = ? ;");
@@ -123,22 +150,53 @@ public class BillingRecord {
       e.printStackTrace();
     }
   }
+  
+	public SimpleStringProperty billingRecordIDProperty() {
+		return new SimpleStringProperty(Integer.toString(getBillingRecordID()));
+	}
+	
+	public SimpleStringProperty patientIDProperty() {
+		return new SimpleStringProperty(Integer.toString(getPatientID()));
+	}
+	
+	public SimpleStringProperty appointmentIDProperty() {
+		return new SimpleStringProperty(Integer.toString(getAppointmentID()));
+	}
+	
+	public SimpleStringProperty amountProperty() {
+		return new SimpleStringProperty(Double.toString(getAmount()));
+	}
+	
+	public SimpleStringProperty paymentTypeProperty() {
+		ResultSet rs = DBUtil.selectQuery("SELECT TransactionTypeId FROM TransactionRecord Where BillingId = '" + this.billingRecordID +"';");
+		try {
+			switch(rs.getInt(1)) {
+				case 1:
+					return new SimpleStringProperty("Cash");
+				case 2: 
+					return new SimpleStringProperty("Card");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}
+		
+		return null;
+		
+	}
+	
+	public SimpleStringProperty referenceNumberProperty() {
+		ResultSet rs = DBUtil.selectQuery("SELECT ReferenceNumber FROM TransactionRecord Where BillingId = '" + this.billingRecordID +"';");
+		try {
+			return new SimpleStringProperty(Integer.toString(rs.getInt(1)));
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}
+		
+		return null;
+		
+	}
     
-  public int getStatus() {
-    return this.statusID;
-  }
-    
-  public void setStatus(int status) {
-    System.out.println(this.statusID);
-    this.statusID = status;
-    
-    PreparedStatement ps = DBUtil.insertQuery("UPDATE BillingRecord SET StatusId = ?" + "WHERE BillingRecordID = ? ;");
-    try {
-      ps.setInt(1,  this.statusID);
-      ps.setInt(2, this.billingRecordID);
-      ps.executeUpdate();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
- }
 }
