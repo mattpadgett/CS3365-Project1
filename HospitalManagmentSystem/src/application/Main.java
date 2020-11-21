@@ -264,6 +264,7 @@ public class Main extends Application {
             
             this.homeViewController = loader.getController();
             this.homeViewController.setMain(this);
+            this.homeViewController.setupAccess();
         } catch(IOException e) {
             e.printStackTrace();
         }

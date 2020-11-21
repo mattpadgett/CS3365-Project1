@@ -61,9 +61,11 @@ public class PatientsViewController {
 	
 	@FXML
 	private void handleTreatmentRecord() {
-		System.out.println(this.selectedPatient.getFirstName());
-		System.out.println(this.selectedPatient.getPatientChartID());
-		this.main.showTreatmentRecordView(this.selectedPatient);
+		if(this.selectedPatient == null) {
+			return;
+		} else {
+			this.main.showTreatmentRecordView(this.selectedPatient);
+		}		
 	}
 	
 	@FXML
