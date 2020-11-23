@@ -5,12 +5,11 @@ import java.util.Random;
 public class BankTransaction {
 	private static Random rnd = new Random(System.currentTimeMillis());
 	
-	public static String processTransaction() {
+	public static int processTransaction() {
 		String referenceNumber = "";
-		int digits;
+		int digits = 0;
 		
 		float chanceOfFailure = rnd.nextFloat();
-		
 		if(chanceOfFailure <= 0.70) { // 70% chance that the bank transaction was successful
 			System.out.println("Your transaction was accpeted!");
 			
@@ -19,12 +18,12 @@ public class BankTransaction {
 				referenceNumber += String.valueOf(digits); // concatenating random digits
 			}
 			
-			return referenceNumber;
+			return digits;
 		}
 		else { // 30% chance that the bank transaction was not successful
 			System.out.println("Your transaction was denied!");
 			
-			return "-1";
+			return -1;
 		}
 		
 	} // end of isTransaction method
