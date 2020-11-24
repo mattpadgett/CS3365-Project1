@@ -4,11 +4,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import util.DBUtil;
 
 public class TreatmentRecord {
 
 	private int treatmentRecordID;
+	private int patientId;
 	private String date; // Had to make this a string for now
 	private float weight; // Might want to convert these floats to doubles
 	private float height;
@@ -17,8 +21,9 @@ public class TreatmentRecord {
 	private String treatmentNote;
 	private int prescriptionId;
 	
-	public TreatmentRecord(String date, float weight, float height, String bloodPressure, String visitReason, String treatmentNote, int prescriptionId) {
+	public TreatmentRecord(PatientChart patient, String date, float weight, float height, String bloodPressure, String visitReason, String treatmentNote, int prescriptionId) {
 		
+		this.patientId = patient.getPatientChartID();
 		this.date = date;
 		this.weight = weight;
 		this.height = height;
@@ -44,16 +49,17 @@ public class TreatmentRecord {
 		
 		if(skipFlag == false) {
 			
-			PreparedStatement pstmt = DBUtil.insertQuery("INSERT INTO TreatmentRecord(date,weight,height,bloodPressure,visitReason,treatmentNote,prescriptionId) VALUES (?,?,?,?,?,?,?);");
+			PreparedStatement pstmt = DBUtil.insertQuery("INSERT INTO TreatmentRecord(patientId,date,weight,height,bloodPressure,visitReason,treatmentNote,prescriptionId) VALUES (?,?,?,?,?,?,?,?);");
 			try {
 				
-				pstmt.setString(1, this.date);
-				pstmt.setFloat(2, this.weight);
-				pstmt.setFloat(3, this.height);
-				pstmt.setString(4, this.bloodPressure);
-				pstmt.setString(5, this.visitReason);
-				pstmt.setString(6, this.treatmentNote);
-				pstmt.setInt(7, this.prescriptionId);
+				pstmt.setInt(1, this.patientId);
+				pstmt.setString(2, this.date);
+				pstmt.setFloat(3, this.weight);
+				pstmt.setFloat(4, this.height);
+				pstmt.setString(5, this.bloodPressure);
+				pstmt.setString(6, this.visitReason);
+				pstmt.setString(7, this.treatmentNote);
+				pstmt.setInt(8, this.prescriptionId);
 				pstmt.executeUpdate();
 				
 			} catch (SQLException e) {
@@ -68,6 +74,30 @@ public class TreatmentRecord {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+	
+	public TreatmentRecord(int treatmentRecordID) {
+		ResultSet rs = DBUtil.selectQuery("SELECT * FROM TreatmentRecord WHERE TreatmentRecordId = '" + treatmentRecordID + "' LIMIT 1;");
+		
+		try {
+			if(rs.next()) {
+				this.treatmentRecordID = rs.getInt(1);
+				this.patientId = rs.getInt(2);
+				this.date = rs.getString(3);
+				this.weight = rs.getFloat(4);
+				this.height = rs.getFloat(5);
+				this.bloodPressure = rs.getString(6);
+				this.visitReason = rs.getString(7);
+				this.treatmentNote = rs.getString(8);
+				this.prescriptionId = rs.getInt(9);	
+			} else {
+				System.out.println("Invalid TreatmentRecordId.");
+			}
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 	
@@ -227,5 +257,33 @@ public class TreatmentRecord {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public SimpleStringProperty dateProperty() {
+		return new SimpleStringProperty(getDate());
+	}
+	
+	public SimpleStringProperty weightProperty() {
+		return new SimpleStringProperty(Float.toString(getWeight()));
+	}
+	
+	public SimpleStringProperty heightProperty() {
+		return new SimpleStringProperty(Float.toString(getHeight()));
+	}
+	
+	public SimpleStringProperty bloodPressureProperty() {
+		return new SimpleStringProperty(getBloodPressure());
+	}
+	
+	public SimpleStringProperty visitReasonProperty() {
+		return new SimpleStringProperty(getVisitReason());
+	}
+	
+	public SimpleStringProperty treatmentNoteProperty() {
+		return new SimpleStringProperty(getTreatmentNote());
+	}
+	
+	public SimpleStringProperty prescriptionProperty() {
+		return new SimpleStringProperty(Integer.toString(getPrescriptionNote()));
 	}
 }
