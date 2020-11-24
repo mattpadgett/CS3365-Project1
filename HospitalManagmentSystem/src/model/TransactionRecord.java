@@ -8,17 +8,17 @@ import util.DBUtil;
 public class TransactionRecord {
   
   private int transactionRecordID;
+  private int billingID;
   private int transactionTypeID;
   private int referenceNumber;
   private double amount;
-  private int statusID;
   
-  public TransactionRecord(int transactionTypeID, int referenceNum, double amount, int statusID) {
+  public TransactionRecord(int transactionTypeID, int billingID, int referenceNum, double amount) {
     
     this.transactionTypeID = transactionTypeID;
+    this.billingID = billingID;
     this.referenceNumber = referenceNum;
     this.amount = amount;
-    this.statusID = statusID;
 
     boolean flag = false;
     
@@ -40,12 +40,13 @@ public class TransactionRecord {
     }
     
     if(flag == false) {
-      PreparedStatement ps = DBUtil.insertQuery("INSERT INTO TransactionRecord(transactionTypeID, referenceNumber, amount, statusID) VALUES (?,?,?,?);");
+      PreparedStatement ps = DBUtil.insertQuery("INSERT INTO TransactionRecord(billingId, transactionTypeID, referenceNumber, amount, statusID) VALUES (?,?,?,?,?);");
       try {
-        ps.setInt(1, this.transactionTypeID);
-        ps.setInt(2, this.referenceNumber);
-        ps.setDouble(3, this.amount);
-        ps.setInt(4, this.statusID);
+	    ps.setInt(1, this.billingID);
+        ps.setInt(2, this.transactionTypeID);
+        ps.setInt(3, this.referenceNumber);
+        ps.setDouble(4, this.amount);
+        ps.setInt(5,1);
         ps.executeUpdate();
       } catch (SQLException e) {
         e.printStackTrace();
@@ -62,12 +63,40 @@ public class TransactionRecord {
     }
   }
   
+  public TransactionRecord(int transactionRecordId) {
+		ResultSet rs = DBUtil.selectQuery("SELECT * FROM TransactionRecord WHERE TransactionRecordId = '" + transactionRecordId + "' LIMIT 1;");
+		
+		try {
+			if(rs.next()) {
+				this.transactionRecordID = rs.getInt(1);
+				this.billingID = rs.getInt(2);
+				this.transactionTypeID = rs.getInt(3);
+				this.referenceNumber = rs.getInt(4);
+				this.amount = rs.getDouble(5);	
+			} else {
+				System.out.println("Invalid TransactionRecordId.");
+			}
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}
+	}
+  
   public int getTransactionRecordID() {
     return this.transactionRecordID;
   }
   
   public void setTransactionRecordID(int id) {
     this.transactionRecordID = id;
+  }
+  
+  public int getBillingID() {
+    return this.billingID;
+  }
+	  
+  public void setBillingID(int id) {
+    this.billingID = id;
   }
   
   public int getTransactionTypeID() {
@@ -124,21 +153,4 @@ public class TransactionRecord {
     }
   }
     
-  public int getStatus() {
-    return this.statusID;
-  }
-    
-  public void setStatus(int status) {
-    System.out.println(this.statusID);
-    this.statusID = status;
-    
-    PreparedStatement ps = DBUtil.insertQuery("UPDATE TransactionRecord SET StatusId = ?" + "WHERE TransactionRecordID = ? ;");
-    try {
-      ps.setInt(1,  this.statusID);
-      ps.setInt(2, this.transactionRecordID);
-      ps.executeUpdate();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
- }
 }

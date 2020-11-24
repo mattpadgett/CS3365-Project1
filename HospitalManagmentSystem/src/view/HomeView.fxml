@@ -37,7 +37,7 @@
             </Button>
          </children>
       </Pane>
-      <Button contentDisplay="TOP" layoutX="70.0" layoutY="15.0" mnemonicParsing="false" onAction="#handlePatients" prefHeight="125.0" prefWidth="125.0" styleClass="home-btn" text="Patients">
+      <Button fx:id="patientsBtn" contentDisplay="TOP" layoutX="70.0" layoutY="15.0" mnemonicParsing="false" onAction="#handlePatients" prefHeight="125.0" prefWidth="125.0" styleClass="home-btn" text="Patients">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -46,7 +46,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button contentDisplay="TOP" layoutX="210.0" layoutY="15.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" styleClass="home-btn" text="Billing">
+      <Button fx:id="billingBtn" contentDisplay="TOP" layoutX="210.0" layoutY="15.0" mnemonicParsing="false" onAction="#handleBilling" prefHeight="125.0" prefWidth="125.0" styleClass="home-btn" text="Billing">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -55,7 +55,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button contentDisplay="TOP" layoutX="350.0" layoutY="15.0" mnemonicParsing="false" onAction="#handleAdmin" prefHeight="125.0" prefWidth="125.0" styleClass="home-btn" text="Administration">
+      <Button fx:id="adminBtn" contentDisplay="TOP" layoutX="350.0" layoutY="15.0" mnemonicParsing="false" onAction="#handleAdmin" prefHeight="125.0" prefWidth="125.0" styleClass="home-btn" text="Administration">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -64,11 +64,20 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button contentDisplay="TOP" layoutX="70.0" layoutY="155.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" styleClass="home-btn" text="Appointments">
+      <Button fx:id="appointmentsBtn" contentDisplay="TOP" layoutX="70.0" layoutY="155.0" mnemonicParsing="false" onAction="#handleAppointments" prefHeight="125.0" prefWidth="125.0" styleClass="home-btn" text="Appointments">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resource/icons/appointments.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="reportingBtn" contentDisplay="TOP" layoutX="210.0" layoutY="155.0" mnemonicParsing="false" onAction="#handleReporting" prefHeight="125.0" prefWidth="125.0" styleClass="home-btn" text="Reporting">
+         <graphic>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resource/icons/report.png" />
                </image>
             </ImageView>
          </graphic>

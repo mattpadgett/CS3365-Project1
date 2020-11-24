@@ -16,8 +16,11 @@ import util.Authentication;
 import util.DBUtil;
 import view.AdminDetailsPopController;
 import view.AdministrationViewController;
+import view.BillingRecordViewController;
+import view.BillingViewController;
 import view.HomeViewController;
 import view.LoginViewController;
+import view.NewPaymentPopController;
 import view.PatientsDetailsPopController;
 import view.PatientsViewController;
 import view.ProfileViewController;
@@ -47,6 +50,10 @@ public class Main extends Application {
 	private PatientsDetailsPopController patientsDetailsPopController;
 	private TreatmentRecordViewController treatmentRecordViewController;
 	private TreatmentDetailsPopController treatmentDetailsPopController;
+	
+	private BillingViewController billingViewController;
+	private NewPaymentPopController newPaymentPopController;
+	private BillingRecordViewController billingRecordViewController;
 	
 	private User loggedUser;
 	
@@ -102,6 +109,63 @@ public class Main extends Application {
             
             this.adminViewController = loader.getController();
             this.adminViewController.setMain(this);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	public void showBillingView() {
+		try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/view/BillingView.fxml"));
+            AnchorPane anchorPane = (AnchorPane) loader.load();
+            
+            this.primaryStage.setScene(new Scene(anchorPane));
+            this.primaryStage.show();
+            
+            this.primaryStage.centerOnScreen();
+            
+            this.billingViewController = loader.getController();
+            this.billingViewController.setMain(this);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	public void showBillingRecordView(PatientChart patient) {
+		try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/view/BillingRecordView.fxml"));
+            AnchorPane anchorPane = (AnchorPane) loader.load();
+            
+            this.primaryStage.setScene(new Scene(anchorPane));
+            this.primaryStage.show();
+            
+            this.primaryStage.centerOnScreen();
+            
+            this.billingRecordViewController = loader.getController();
+            this.billingRecordViewController.setMain(this);
+            this.billingRecordViewController.setPatient(patient);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	public void showNewPaymentPop(PatientChart patient, TransactionRecord transaction, boolean newTransactionMode) {
+		try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/view/NewPaymentPop.fxml"));
+            AnchorPane anchorPane = (AnchorPane) loader.load();
+            
+            this.popStage.setScene(new Scene(anchorPane));
+            
+            this.newPaymentPopController = loader.getController();
+            this.newPaymentPopController.setMain(this);
+            this.newPaymentPopController.loadData(transaction, patient);
+            this.newPaymentPopController.setNewTransactionMode(newTransactionMode);
+            
+            this.popStage.centerOnScreen();
+            this.popStage.show();
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -200,6 +264,7 @@ public class Main extends Application {
             
             this.homeViewController = loader.getController();
             this.homeViewController.setMain(this);
+            this.homeViewController.setupAccess();
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -323,6 +388,11 @@ public class Main extends Application {
 		return treatmentDetailsPopController;
 	}
 
+	public BillingRecordViewController getBillingRecordViewController() {
+		return billingRecordViewController;
+	}
+
+	
 	public static void main(String[] args) {
 		launch(args);
 	}

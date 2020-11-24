@@ -2,7 +2,6 @@ package view;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import application.Main;
 import javafx.collections.FXCollections;
@@ -13,9 +12,9 @@ import javafx.scene.control.TableView;
 import model.PatientChart;
 import util.DBUtil;
 
-public class PatientsViewController {
+public class BillingViewController {
 
-	private Main main;
+private Main main;
 	
 	private ObservableList<PatientChart> patients = FXCollections.observableArrayList();
 	private PatientChart selectedPatient = null;
@@ -36,36 +35,21 @@ public class PatientsViewController {
 	private TableColumn<PatientChart, String> insuranceColumn;
 	
 	@FXML
-	private void handleDetails() {
+	private void handleRecord() {
 		if(this.selectedPatient == null) {
 			return;
 		} else {
-			this.main.showPatientsDetailsPop(this.selectedPatient, false);
-		}
-	}
-	
-	@FXML
-	private void handleDelete() {
-		if(this.selectedPatient == null) {
-			return;
-		} else {
-			DBUtil.updateQuery("UPDATE PatientChart SET StatusId = 2 WHERE PatientChartId = " + this.selectedPatient.getPatientChartID());
-			initialize();
+			this.main.showBillingRecordView(this.selectedPatient);
 		}
 	}
 	
 	@FXML
 	private void handleNew() {
-		this.main.showPatientsDetailsPop(null, true);
-	}
-	
-	@FXML
-	private void handleTreatmentRecord() {
 		if(this.selectedPatient == null) {
 			return;
-		} else {
-			this.main.showTreatmentRecordView(this.selectedPatient);
-		}		
+		}else {
+			this.main.showNewPaymentPop(this.selectedPatient, null, true);
+		}
 	}
 	
 	@FXML
