@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.Appointment;
 import model.PatientChart;
 import model.TreatmentRecord;
 import model.User;
@@ -14,6 +15,7 @@ import model.TransactionRecord;
 import model.BillingRecord;
 import util.Authentication;
 import util.DBUtil;
+import util.Scheduling;
 import view.AdminDetailsPopController;
 import view.AdministrationViewController;
 import view.BillingRecordViewController;
@@ -336,7 +338,26 @@ public class Main extends Application {
 //		testingTreatRecord.setVisitReason("Heart feels like they are about to explode");
 //		testingTreatRecord.setTreatmentNote("Kicking them out bc they don't have health insurance");
 //		testingTreatRecord.setPrescriptionId(1);
-		
+
+//      TESTING FOR SCHEDULING CLASS
+//	    java.util.Date day1 = new java.util.Date(100,1,2,9,30,0);
+//        java.util.Date day11 = new java.util.Date(100,1,2,11,00,0);
+//        java.util.Date day12 = new java.util.Date(1000,1,2,14,00,0);
+//        java.util.Date day2 = new java.util.Date(100,1,3,10,30,0);
+//        java.util.Date day21 = new java.util.Date(100,1,3,9,30,0);
+//        
+//        
+//	  
+//	    Appointment apt1 = new Appointment(1, 11, new java.sql.Date(day1.getTime()));
+//	    Appointment apt2 = new Appointment(2, 22, new java.sql.Date(day11.getTime()));
+//	    Appointment apt3 = new Appointment(1, 33, new java.sql.Date(day12.getTime()));
+//	    Appointment apt4 = new Appointment(1, 44, new java.sql.Date(day2.getTime()));
+//        Appointment apt5 = new Appointment(1, 34, new java.sql.Date(day21.getTime()));
+//	  
+//	    java.util.Date x = new java.util.Date(System.currentTimeMillis());
+//	    System.out.println(Scheduling.getAvailability(1,new java.util.Date(100,1,2)));
+	    
+	  
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Hospital Management System");
 		this.primaryStage.setResizable(false);
