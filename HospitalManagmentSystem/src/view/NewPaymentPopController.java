@@ -6,11 +6,13 @@ import application.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import model.BillingRecord;
 import model.PatientChart;
 import model.TransactionRecord;
 import model.User;
 import util.Authentication;
+import util.BankTransaction;
 import util.DBUtil;
 
 public class NewPaymentPopController {
@@ -23,6 +25,9 @@ public class NewPaymentPopController {
 	
 	@FXML
 	private TextField amountField;
+	
+	@FXML
+	private Label transactionFailedLabel;
 	
 	@FXML
 	private ComboBox<String> paymentTypeField;
@@ -50,11 +55,19 @@ public class NewPaymentPopController {
 	@FXML
 	private void handleSave() {
 		if(this.newTransactionMode) {
-			Random rnd = new Random(System.currentTimeMillis());
-			BillingRecord b = new BillingRecord(this.patient.getPatientChartID(), rnd.nextInt(9000), Double.valueOf(amountField.getText()));
-			System.out.println("bill:");
-			System.out.println(b.getBillingRecordID());
-			TransactionRecord t = new TransactionRecord(paymentTypeField.getSelectionModel().getSelectedIndex() + 1, b.getBillingRecordID(), rnd.nextInt(9000), Double.valueOf(amountField.getText()));
+			int referenceNum = BankTransaction.processTransaction();
+			if (referenceNum == -1 && paymentTypeField.getSelectionModel().getSelectedIndex() + 1 == 2) {
+				transactionFailedLabel.setVisible(true);
+			} else {
+				Random rnd = new Random(System.currentTimeMillis());
+				while (referenceNum == -1 && paymentTypeField.getSelectionModel().getSelectedIndex() + 1 == 1) {
+					referenceNum = 1000 + rnd.nextInt(9000);
+				}
+				transactionFailedLabel.setVisible(false);
+				BillingRecord b = new BillingRecord(this.patient.getPatientChartID(), rnd.nextInt(9000), Double.valueOf(amountField.getText()));
+				TransactionRecord t = new TransactionRecord(paymentTypeField.getSelectionModel().getSelectedIndex() + 1, b.getBillingRecordID(), referenceNum, Double.valueOf(amountField.getText()));
+				this.main.getPopStage().hide();
+			}
 		} else {
 			DBUtil.updateQuery("UPDATE BillingRecord SET Amount = '" + amountField.getText() + "' "
 					+ "WHERE BillingRecordId = '" + this.transaction.getBillingID() + "'");
@@ -66,10 +79,11 @@ public class NewPaymentPopController {
 				+ "TransactionTypeId = '" + String.valueOf(paymentTypeField.getSelectionModel().getSelectedIndex() + 1) + "' "
 				+ "WHERE TransactionRecordId = '" + this.transaction.getTransactionRecordID() + "'");
 			this.main.getBillingRecordViewController().initialize();
+			this.main.getPopStage().hide();
 		}
 		
 		
-		this.main.getPopStage().hide();
+		
 	}
 	
 	@FXML
