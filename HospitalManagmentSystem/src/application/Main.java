@@ -2,6 +2,8 @@ package application;
 	
 import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -352,12 +354,14 @@ public class Main extends Application {
 //	    Appointment apt2 = new Appointment(2, 22, new java.sql.Date(day11.getTime()));
 //	    Appointment apt3 = new Appointment(1, 33, new java.sql.Date(day12.getTime()));
 //	    Appointment apt4 = new Appointment(1, 44, new java.sql.Date(day2.getTime()));
-//        Appointment apt5 = new Appointment(1, 34, new java.sql.Date(day21.getTime()));
+//      Appointment apt5 = new Appointment(1, 34, new java.sql.Date(day21.getTime()));
 //	  
 //	    java.util.Date x = new java.util.Date(System.currentTimeMillis());
 //	    System.out.println(Scheduling.getAvailability(1,new java.util.Date(100,1,2)));
 	    
-	  
+		//Appointment apt = new Appointment(1, 2, LocalDateTime.of(2020, 11, 24, 13, 22));
+		System.out.println(Scheduling.getAvailability(1, LocalDate.of(2020, 11, 24)).toString());
+		
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Hospital Management System");
 		this.primaryStage.setResizable(false);
