@@ -44,7 +44,7 @@ public class Appointment {
 			e.printStackTrace();
 			System.exit(-1);
 		}
-	} //end of retreiving an existing appointment from the DB
+	} //end of retrieving an existing appointment from the DB
 	
 	//Create a new appointment to insert to the database.
 	public Appointment(int doctorId, int patientId, Date appointmentTime) {
@@ -58,6 +58,7 @@ public class Appointment {
 			pstmt.setInt(2, patientId);
 			pstmt.setString(3, formattedDate);
 			pstmt.setInt(4, 1);
+			pstmt.executeUpdate();
 			
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -76,6 +77,7 @@ public class Appointment {
 		try {
 			pstmt.setInt(1, this.doctorIdNumber);
 			pstmt.setInt(2, this.appointmentId);
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -92,6 +94,7 @@ public class Appointment {
 		try {
 			pstmt.setInt(1, this.patientIdNumber);
 			pstmt.setInt(2, this.appointmentId);
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -111,6 +114,7 @@ public class Appointment {
 		try {
 			pstmt.setString(1, formattedDate);
 			pstmt.setInt(2, this.appointmentId);
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -128,6 +132,7 @@ public class Appointment {
 		try {
 			pstmt.setInt(1, this.statusId);
 			pstmt.setInt(2, this.appointmentId);
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
