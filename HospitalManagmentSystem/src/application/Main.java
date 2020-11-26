@@ -366,9 +366,7 @@ public class Main extends Application {
         this.popStage.initStyle(StageStyle.UNDECORATED);
         this.popStage.setAlwaysOnTop(true);
 		
-		//showLoginView();
-		this.setLoggedUser(new User(1));
-		this.showPatientsView();
+		showLoginView();
 	}
 	
 	public Stage getPopStage() {
