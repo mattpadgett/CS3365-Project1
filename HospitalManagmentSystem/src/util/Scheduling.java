@@ -48,7 +48,7 @@ public class Scheduling {
     	times.add(LocalDateTime.of(day, LocalTime.of(16, 0, 0)));
     	times.add(LocalDateTime.of(day, LocalTime.of(16, 30, 0)));    	
 
-		ResultSet rs = DBUtil.selectQuery("SELECT * FROM Appointment WHERE DoctorId = '" + doctorId + "' AND AppointmentTime LIKE '%" + day.format(DateTimeFormatter.ISO_DATE) + "%';");
+		ResultSet rs = DBUtil.selectQuery("SELECT * FROM Appointment WHERE DoctorId = '" + doctorId + "' AND AppointmentTime LIKE '%" + day.format(DateTimeFormatter.ISO_DATE) + "%' AND StatusId <> 2;");
 		
 		try {
 			while(rs.next()) {

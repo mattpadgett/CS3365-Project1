@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import javafx.beans.property.SimpleStringProperty;
+import util.Authentication;
 import util.DBUtil;
 
 public class Appointment {	
@@ -122,4 +124,47 @@ public class Appointment {
 		return appointmentId;
 	}
 	
+	public SimpleStringProperty dateProperty() {
+		return new SimpleStringProperty(this.appointmentTime.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
+	}
+	
+	public SimpleStringProperty timeProperty() {
+		return new SimpleStringProperty(this.appointmentTime.format(DateTimeFormatter.ofPattern("HH:mm")));
+	}
+	
+	public SimpleStringProperty doctorProperty() {
+		ResultSet rs = DBUtil.selectQuery("SELECT LastName, FirstName FROM User WHERE UserId = '" + this.doctorIdNumber + "' LIMIT 1;");
+		
+		try {
+			if(rs.next()) {
+				return new SimpleStringProperty(rs.getString(1) + ", " + rs.getString(2));
+			} else {
+				System.out.println("Invalid ID.");
+				System.exit(-1);
+			}
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}
+		return null;
+	}
+	
+	public SimpleStringProperty statusProperty() {
+		ResultSet rs = DBUtil.selectQuery("SELECT Status FROM Resource_Status WHERE StatusId = '" + this.statusId + "' LIMIT 1;");
+		
+		try {
+			if(rs.next()) {
+				return new SimpleStringProperty(rs.getString(1));
+			} else {
+				System.out.println("Invalid ID.");
+				System.exit(-1);
+			}
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}
+		return null;
+	}
 }

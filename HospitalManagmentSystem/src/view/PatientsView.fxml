@@ -45,6 +45,7 @@
       <Button layoutX="678.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleDetails" prefHeight="33.0" prefWidth="105.0" text="Details" />
       <Button layoutX="678.0" layoutY="98.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="33.0" prefWidth="105.0" text="Delete" textAlignment="CENTER" />
       <Button layoutX="678.0" layoutY="146.0" mnemonicParsing="false" onAction="#handleNew" prefHeight="33.0" prefWidth="105.0" text="New Patient" textAlignment="CENTER" />
-      <Button layoutX="678.0" layoutY="194.0" mnemonicParsing="false" onAction="#handleTreatmentRecord" prefHeight="50.0" prefWidth="105.0" text="Treatment&#10;Record" textAlignment="CENTER" />
+      <Button layoutX="678.0" layoutY="192.0" mnemonicParsing="false" onAction="#handleTreatmentRecord" prefHeight="50.0" prefWidth="105.0" text="Treatment&#10;Record" textAlignment="CENTER" />
+      <Button layoutX="678.0" layoutY="256.0" mnemonicParsing="false" onAction="#handleAppointments" prefHeight="50.0" prefWidth="105.0" text="Appts." textAlignment="CENTER" wrapText="true" />
    </children>
 </AnchorPane>

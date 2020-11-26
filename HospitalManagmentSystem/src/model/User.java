@@ -286,4 +286,8 @@ public class User {
 	public SimpleStringProperty userTypeProperty() {
 		return new SimpleStringProperty(getUserType());
 	}
+	
+	public String toString() {
+		return this.lastName + ", " + this.firstName;
+	}
 }

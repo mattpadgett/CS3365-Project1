@@ -69,6 +69,15 @@ public class PatientsViewController {
 	}
 	
 	@FXML
+	private void handleAppointments() {
+		if(this.selectedPatient == null) {
+			return;
+		} else {
+			this.main.showAppointmentsView(this.selectedPatient);
+		}
+	}
+	
+	@FXML
 	private void handleReturn() {
 		this.main.showHomeView();
 	}
