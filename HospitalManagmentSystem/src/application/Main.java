@@ -2,6 +2,8 @@ package application;
 	
 import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +20,8 @@ import util.DBUtil;
 import util.Scheduling;
 import view.AdminDetailsPopController;
 import view.AdministrationViewController;
+import view.AppointmentDetailsPopController;
+import view.AppointmentsViewController;
 import view.BillingRecordViewController;
 import view.BillingViewController;
 import view.HomeViewController;
@@ -56,6 +60,9 @@ public class Main extends Application {
 	private BillingViewController billingViewController;
 	private NewPaymentPopController newPaymentPopController;
 	private BillingRecordViewController billingRecordViewController;
+	
+	private AppointmentsViewController appointmentsViewController;
+	private AppointmentDetailsPopController appointmentDetailsPopController;
 	
 	private User loggedUser;
 	
@@ -272,6 +279,47 @@ public class Main extends Application {
         }
 	}
 	
+	public void showAppointmentsView(PatientChart patient) {
+		try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/view/AppointmentsView.fxml"));
+            AnchorPane anchorPane = (AnchorPane) loader.load();
+            
+            this.primaryStage.setScene(new Scene(anchorPane));
+            this.primaryStage.show();
+            
+            this.primaryStage.centerOnScreen();
+            
+            this.appointmentsViewController = loader.getController();
+            this.appointmentsViewController.setMain(this);
+            this.appointmentsViewController.setPatient(patient);
+            this.appointmentsViewController.setup();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	public void showAppointmentDetailsPop(PatientChart patient, Appointment appt, boolean newApptMode) {
+		try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/view/AppointmentDetailsPop.fxml"));
+            AnchorPane anchorPane = (AnchorPane) loader.load();
+            
+            this.popStage.setScene(new Scene(anchorPane));
+            
+            this.appointmentDetailsPopController = loader.getController();
+            this.appointmentDetailsPopController.setMain(this);
+            this.appointmentDetailsPopController.setup(patient, appt, newApptMode);
+            
+            this.appointmentsViewController.getAnchorPane().setDisable(true);
+            
+            this.popStage.centerOnScreen();
+            this.popStage.show();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
 	public void showLoginView() {
 		try {
             FXMLLoader loader = new FXMLLoader();
@@ -287,9 +335,6 @@ public class Main extends Application {
             
             this.loginViewController = loader.getController();
             this.loginViewController.setMain(this);
-            
-            //this.setLoggedUser(new User(1));
-            //this.showHomeView();
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -305,59 +350,9 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
+		//Appointment apt = new Appointment(1, 2, LocalDateTime.of(2020, 11, 24, 13, 22));		
+		System.out.println(Scheduling.getAvailability(1, LocalDate.of(2020, 11, 24)).toString());
 		
-//		User testingUser = new User(1, "Christian", "Luckow", "Andres", "ijasonluck@gmail.com", "christian.luckow");
-//		testingUser.setUserTypeId(2);
-//		testingUser.setFirstName("Chris");
-//		testingUser.setLastName("Ramirez");
-//		testingUser.setMiddleName("Jeffrey");
-//		testingUser.setEmail("jason.luckow@outlook.com");
-//		testingUser.setUsername("chris.ramirez");
-		
-//		PatientChart testingChart = new PatientChart("Json", "Luckow", "Jeffrey", "707 Ave T", "3478 CatClaw DR #212", "Lubbock", "TX", "79401", "000-00-0000", "The Best Insurance");
-//		testingChart.setFirstName("json");
-//		testingChart.setLastName("Ramirez");
-//		testingChart.setMiddleName("Andres");
-//		testingChart.setAddress1("3478 CatClaw Dr #212");
-//		testingChart.setAddress2("707 Ave T");
-//		testingChart.setCity("Abilene");
-//		testingChart.setState("Texas");
-//		testingChart.setZipCode("79606");
-//		testingChart.setSocialSecurityNumber("000-00-0001");
-//		testingChart.setInsuranceProvider("The Worst Insurance");
-//		PatientChart testingChart2 = new PatientChart("Jason", "Luckow", "Jeffrey", "707 Ave T", "3478 CatClaw DR #212", "Lubbock", "TX", "79401", "000-00-0000", "The Best Insurance");
-//		System.out.println(testingChart.getPatientChartID());
-		
-		
-//		TreatmentRecord testingTreatRecord = new TreatmentRecord(testingChart, "11/02/2020", 165.00f, 71.00f, "140/90mmHg", "Corona", "Does not actually have corona", 0);
-//		System.out.println("here1");
-		//testingTreatRecord.setDate("11/05/2020");
-//		testingTreatRecord.setWeight(120.00f);
-//		testingTreatRecord.setHeight(84.00f);
-//		testingTreatRecord.setBloodPressure("180/100mmHg");
-//		testingTreatRecord.setVisitReason("Heart feels like they are about to explode");
-//		testingTreatRecord.setTreatmentNote("Kicking them out bc they don't have health insurance");
-//		testingTreatRecord.setPrescriptionId(1);
-
-//      TESTING FOR SCHEDULING CLASS
-//	    java.util.Date day1 = new java.util.Date(100,1,2,9,30,0);
-//        java.util.Date day11 = new java.util.Date(100,1,2,11,00,0);
-//        java.util.Date day12 = new java.util.Date(1000,1,2,14,00,0);
-//        java.util.Date day2 = new java.util.Date(100,1,3,10,30,0);
-//        java.util.Date day21 = new java.util.Date(100,1,3,9,30,0);
-//        
-//        
-//	  
-//	    Appointment apt1 = new Appointment(1, 11, new java.sql.Date(day1.getTime()));
-//	    Appointment apt2 = new Appointment(2, 22, new java.sql.Date(day11.getTime()));
-//	    Appointment apt3 = new Appointment(1, 33, new java.sql.Date(day12.getTime()));
-//	    Appointment apt4 = new Appointment(1, 44, new java.sql.Date(day2.getTime()));
-//        Appointment apt5 = new Appointment(1, 34, new java.sql.Date(day21.getTime()));
-//	  
-//	    java.util.Date x = new java.util.Date(System.currentTimeMillis());
-//	    System.out.println(Scheduling.getAvailability(1,new java.util.Date(100,1,2)));
-	    
-	  
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Hospital Management System");
 		this.primaryStage.setResizable(false);
@@ -369,8 +364,11 @@ public class Main extends Application {
         this.popStage = new Stage();
         this.popStage.setResizable(false);
         this.popStage.initStyle(StageStyle.UNDECORATED);
+        this.popStage.setAlwaysOnTop(true);
 		
-		showLoginView();
+		//showLoginView();
+		this.setLoggedUser(new User(1));
+		this.showPatientsView();
 	}
 	
 	public Stage getPopStage() {
@@ -412,8 +410,15 @@ public class Main extends Application {
 	public BillingRecordViewController getBillingRecordViewController() {
 		return billingRecordViewController;
 	}
-
 	
+	public AppointmentsViewController getAppointmentsViewController() {
+		return appointmentsViewController;
+	}
+
+	public AppointmentDetailsPopController getAppointmentDetailsPopController() {
+		return appointmentDetailsPopController;
+	}
+
 	public static void main(String[] args) {
 		launch(args);
 	}

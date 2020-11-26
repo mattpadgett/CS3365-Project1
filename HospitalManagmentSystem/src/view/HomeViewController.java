@@ -26,11 +26,6 @@ public class HomeViewController {
 	}
 	
 	@FXML
-	private void handleAppointments() {
-		
-	}
-	
-	@FXML
 	private void handleReporting() {
 		
 	}
@@ -46,28 +41,24 @@ public class HomeViewController {
 				this.patientsBtn.setVisible(true);
 				this.billingBtn.setVisible(true);
 				this.adminBtn.setVisible(true);
-				this.appointmentsBtn.setVisible(true);
 				this.reportingBtn.setVisible(true);
 				break;
 			case "nurse":
 				this.patientsBtn.setVisible(true);
 				this.billingBtn.setVisible(false);
 				this.adminBtn.setVisible(false);
-				this.appointmentsBtn.setVisible(true);
 				this.reportingBtn.setVisible(false);
 				break;
 			case "doctor":
 				this.patientsBtn.setVisible(true);
 				this.billingBtn.setVisible(false);
 				this.adminBtn.setVisible(false);
-				this.appointmentsBtn.setVisible(true);
 				this.reportingBtn.setVisible(false);
 				break;
 			case "staff":
 				this.patientsBtn.setVisible(true);
 				this.billingBtn.setVisible(true);
 				this.adminBtn.setVisible(false);
-				this.appointmentsBtn.setVisible(true);
 				this.reportingBtn.setVisible(false);
 				break;
 		}

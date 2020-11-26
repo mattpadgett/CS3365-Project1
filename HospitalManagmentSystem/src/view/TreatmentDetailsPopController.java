@@ -40,6 +40,14 @@ public class TreatmentDetailsPopController {
 			this.visitReasonField.setText(this.record.getVisitReason());
 			this.treatmentNoteField.setText(this.record.getTreatmentNote());
 			this.prescriptionIDField.setText(Integer.toString(this.record.getPrescriptionNote()));
+			
+			if(!this.main.getLoggedUser().getUserType().equalsIgnoreCase("doctor")) {
+				this.treatmentNoteField.setDisable(true);
+				this.prescriptionIDField.setDisable(true);
+			} else {
+				this.treatmentNoteField.setDisable(false);
+				this.prescriptionIDField.setDisable(false);
+			}
 
 		}
 	}
