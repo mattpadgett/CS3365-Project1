@@ -30,6 +30,7 @@ import view.NewPaymentPopController;
 import view.PatientsDetailsPopController;
 import view.PatientsViewController;
 import view.ProfileViewController;
+import view.ReportViewController;
 import view.TreatmentDetailsPopController;
 import view.TreatmentRecordViewController;
 import javafx.scene.Scene;
@@ -63,6 +64,8 @@ public class Main extends Application {
 	
 	private AppointmentsViewController appointmentsViewController;
 	private AppointmentDetailsPopController appointmentDetailsPopController;
+	
+	private ReportViewController reportViewController;
 	
 	private User loggedUser;
 	
@@ -299,6 +302,25 @@ public class Main extends Application {
         }
 	}
 	
+	public void showReportView() {
+		try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/view/ReportView.fxml"));
+            AnchorPane anchorPane = (AnchorPane) loader.load();
+            
+            this.primaryStage.setScene(new Scene(anchorPane));
+            this.primaryStage.show();
+            
+            this.primaryStage.centerOnScreen();
+            
+            this.reportViewController = loader.getController();
+            this.reportViewController.setMain(this);
+            this.reportViewController.setup();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
 	public void showAppointmentDetailsPop(PatientChart patient, Appointment appt, boolean newApptMode) {
 		try {
             FXMLLoader loader = new FXMLLoader();
@@ -415,6 +437,10 @@ public class Main extends Application {
 
 	public AppointmentDetailsPopController getAppointmentDetailsPopController() {
 		return appointmentDetailsPopController;
+	}
+
+	public ReportViewController getReportViewController() {
+		return reportViewController;
 	}
 
 	public static void main(String[] args) {
