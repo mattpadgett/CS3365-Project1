@@ -27,7 +27,7 @@ public class HomeViewController {
 	
 	@FXML
 	private void handleReporting() {
-		
+		this.main.showReportView();
 	}
 	
 	@FXML
