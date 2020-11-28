@@ -38,8 +38,8 @@ public class HomeViewController {
 	public void setupAccess() {
 		switch(this.main.getLoggedUser().getUserType().toLowerCase()) {
 			case "ceo":
-				this.patientsBtn.setVisible(true);
-				this.billingBtn.setVisible(true);
+				this.patientsBtn.setVisible(false);
+				this.billingBtn.setVisible(false);
 				this.adminBtn.setVisible(true);
 				this.reportingBtn.setVisible(true);
 				break;

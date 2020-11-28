@@ -16,7 +16,7 @@ import model.User;
 
 /*
 	The system generates a daily summary report at 9 pm every business day. The report shows
-	information about doctors’ performance for a day. The report contains each doctor name, the
+	information about doctors performance for a day. The report contains each doctor name, the
 	number of patients served by a doctor, and the amount earned. The daily reports are stored in the
 	system so that CEO can view them. 
  */

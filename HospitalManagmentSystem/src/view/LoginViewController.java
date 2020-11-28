@@ -2,9 +2,6 @@ package view;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import com.sun.org.apache.bcel.internal.generic.Select;
-
 import application.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;

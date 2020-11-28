@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import model.User;
-import sun.text.normalizer.ICUBinary.Authenticate;
 import util.Authentication;
 import util.DBUtil;
 
