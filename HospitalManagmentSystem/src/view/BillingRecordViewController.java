@@ -95,7 +95,7 @@ public class BillingRecordViewController {
 			System.exit(-1);
 		}
 
-//		dateColumn.setCellValueFactory(cellData -> cellData.getValue().heightProperty());
+		dateColumn.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
 		amountColumn.setCellValueFactory(cellData -> cellData.getValue().amountProperty());
 		paymentTypeColumn.setCellValueFactory(cellData -> cellData.getValue().paymentTypeProperty());
 		referenceNumberColumn.setCellValueFactory(cellData -> cellData.getValue().referenceNumberProperty());

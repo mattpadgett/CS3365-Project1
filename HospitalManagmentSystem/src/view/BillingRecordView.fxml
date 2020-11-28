@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="535.0" prefWidth="705.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.BillingRecordViewController">
+<AnchorPane prefHeight="535.0" prefWidth="771.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.BillingRecordViewController">
    <children>
       <Pane prefWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -34,15 +34,15 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <TableView fx:id="recordTable" layoutX="70.0" layoutY="50.0" prefHeight="447.0" prefWidth="511.0">
+      <TableView fx:id="recordTable" layoutX="70.0" layoutY="50.0" prefHeight="447.0" prefWidth="579.0">
          <columns>
-            <TableColumn fx:id="dateColumn" prefWidth="90.0" text="Date" />
-            <TableColumn fx:id="amountColumn" prefWidth="120.0" text="Amount" />
-            <TableColumn fx:id="paymentTypeColumn" prefWidth="119.0" text="Payment Type" />
-            <TableColumn fx:id="referenceNumberColumn" prefWidth="198.0" text="Reference Number" />
+            <TableColumn fx:id="dateColumn" prefWidth="108.0" text="Date" />
+            <TableColumn fx:id="amountColumn" prefWidth="103.0" text="Amount" />
+            <TableColumn fx:id="paymentTypeColumn" prefWidth="165.79998779296875" text="Payment Type" />
+            <TableColumn fx:id="referenceNumberColumn" prefWidth="201.20001220703125" text="Reference Number" />
          </columns>
       </TableView>
-      <Button layoutX="586.0" layoutY="49.0" mnemonicParsing="false" onAction="#handleDetails" prefHeight="33.0" prefWidth="105.0" text="Details" />
-      <Button layoutX="586.0" layoutY="89.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="33.0" prefWidth="105.0" text="Delete" textAlignment="CENTER" />
+      <Button layoutX="652.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleDetails" prefHeight="33.0" prefWidth="105.0" text="Details" />
+      <Button layoutX="652.0" layoutY="90.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="33.0" prefWidth="105.0" text="Delete" textAlignment="CENTER" />
    </children>
 </AnchorPane>
