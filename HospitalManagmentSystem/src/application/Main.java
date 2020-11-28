@@ -371,10 +371,7 @@ public class Main extends Application {
 	}
 	
 	@Override
-	public void start(Stage primaryStage) {
-		//Appointment apt = new Appointment(1, 2, LocalDateTime.of(2020, 11, 24, 13, 22));		
-		System.out.println(Scheduling.getAvailability(1, LocalDate.of(2020, 11, 24)).toString());
-		
+	public void start(Stage primaryStage) {	
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Hospital Management System");
 		this.primaryStage.setResizable(false);

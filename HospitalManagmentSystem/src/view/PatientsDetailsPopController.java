@@ -2,12 +2,8 @@ package view;
 
 import application.Main;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import model.PatientChart;
-import model.User;
-import sun.text.normalizer.ICUBinary.Authenticate;
-import util.Authentication;
 import util.DBUtil;
 
 public class PatientsDetailsPopController {
