@@ -163,6 +163,19 @@ public class BillingRecord {
 		return new SimpleStringProperty(Integer.toString(getAppointmentID()));
 	}
 	
+	public SimpleStringProperty dateProperty() {
+		
+		ResultSet rs = DBUtil.selectQuery("SELECT MAX(AppointmentTime) FROM Appointment Where PatientId = '" + this.patientID +"' and StatusId = 1;");
+		try {
+			return new SimpleStringProperty((rs.getString(1)));
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}
+		
+		return null;
+	}
+	
 	public SimpleStringProperty amountProperty() {
 		return new SimpleStringProperty(Double.toString(getAmount()));
 	}
