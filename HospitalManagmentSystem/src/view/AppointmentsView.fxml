@@ -19,7 +19,7 @@
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resource/icons/back.png" />
+                        <Image url="@../icons/back.png" />
                      </image>
                      <rotationAxis>
                         <Point3D />

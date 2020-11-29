@@ -356,7 +356,7 @@ public class Main extends Application {
             this.loginStage.centerOnScreen();
             
             this.loginViewController = loader.getController();
-            this.loginViewController.setMain(this);
+            this.loginViewController.setMain(this);                        
         } catch(IOException e) {
             e.printStackTrace();
         }

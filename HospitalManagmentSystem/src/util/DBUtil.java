@@ -6,17 +6,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import application.Main;
+
 public class DBUtil {
-	public static final String CONN_STRING = "jdbc:sqlite:src/resource/HMS.db";
+	public static final String CONN_STRING = "jdbc:sqlite:" + System.getProperty("user.home") + "/Desktop/HospitalManagementSystem/HMS.db";
 	public static Connection conn = null;
 	
 	public static Connection getConn() {
 		if(conn == null) {
 			try {
+				Class.forName("org.sqlite.JDBC");				
 				conn = DriverManager.getConnection(CONN_STRING);
 			} catch (SQLException e) {
 				System.err.println("Couldn't connect to the database.");
 				System.exit(9000);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+				System.exit(9001);
 			}
 		}
 		
